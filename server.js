@@ -18,12 +18,12 @@ app.get('/', async (req, res) => {
 });
 
 app.post('/shortenUrl', async (req, res) => {
-  await ShortUrl.create({ full: req.body.fullUrl });
+  await ShortUrl.create({ originalUrl: req.body.fullUrl });
   res.json({ ok: true });
 });
 
 app.get('/:shortUrl', async (req, res) => {
-  const shortURL = await ShortUrl.findOne({ short: req.params.shortUrl });
+  const shortURL = await ShortUrl.findOne({ shortId: req.params.shortUrl });
 
   if (shortURL == null) return res.sendStatus(404);
   shortURL.clicks++;
