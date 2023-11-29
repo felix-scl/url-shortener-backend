@@ -29,7 +29,7 @@ app.get('/:shortUrl', async (req, res) => {
   shortURL.clicks++;
   shortURL.save();
 
-  res.redirect(shortURL.full);
+  res.redirect(shortURL.originalUrl);
 });
 
 app.listen(PORT, console.log(`Connected to port ${PORT}`));
