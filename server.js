@@ -32,4 +32,16 @@ app.get('/:shortUrl', async (req, res) => {
   res.redirect(shortURL.originalUrl);
 });
 
+app.delete('/delete/:shortUrl', async (req, res) => {
+  const deletedURL = await ShortUrl.findOneAndDelete({
+    shortId: req.params.shortUrl,
+  });
+
+  if (!deletedURL) {
+    return res.status(404).json({ message: 'URL not found' });
+  }
+
+  res.json({ ok: true, message: 'URL deleted successfully' });
+});
+
 app.listen(PORT, console.log(`Connected to port ${PORT}`));
